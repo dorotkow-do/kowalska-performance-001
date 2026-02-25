@@ -4,8 +4,11 @@ import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporte
 
 // k6 configuration options
 export const options = {
-  vus: __ENV.VUS || 100,                 // Number of virtual users
-  duration: __ENV.DURATION || '1m',          // Duration of the test
+  stages: [
+    { duration: '2m', target: __ENV.VUS || 100 },  // Ramp-up: 0 to 100 VUs over 2 mins
+    { duration: __ENV.DURATION || '12m', target: __ENV.VUS || 100 }, // Steady state: Stay at 100 VUs for 12 mins
+    { duration: '1m', target: 0 },   // Ramp-down: 100 to 0 VUs over 1 min
+  ],
   summaryTrendStats: ['avg', 'min', 'med', 'max', 'p(50)', 'p(90)', 'p(99)'],
 };
 
