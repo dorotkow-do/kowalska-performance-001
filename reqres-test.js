@@ -1,10 +1,11 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
+import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
 
 // k6 configuration options
 export const options = {
-  vus: __ENV.VUS || 1,                 // Number of virtual users
-  duration: __ENV.DURATION || '6s',          // Duration of the test
+  vus: __ENV.VUS || 100,                 // Number of virtual users
+  duration: __ENV.DURATION || '1m',          // Duration of the test
   summaryTrendStats: ['avg', 'min', 'med', 'max', 'p(50)', 'p(90)', 'p(99)'],
 };
 
@@ -42,4 +43,10 @@ export default function () {
 
   // Wait for 1 second between iterations per virtual user
   sleep(1);
+}
+
+export function handleSummary(data) {
+  return {
+    [`test_result/summary_${new Date().toISOString().replace(/[:.]/g, '-')}.html`]: htmlReport(data),
+  };
 }
