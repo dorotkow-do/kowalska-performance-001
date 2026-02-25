@@ -1,0 +1,20 @@
+{
+  "name": "kowalska-performance-001",
+  "version": "1.0.0",
+  "description": "reqres training project",
+  "main": "index.js",
+  "scripts": {
+    "test": "set -a; . ./.env; set +a; k6 run reqres-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dorotkow-do/kowalska-performance-001.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dorotkow-do/kowalska-performance-001/issues"
+  },
+  "homepage": "https://github.com/dorotkow-do/kowalska-performance-001#readme"
+}
